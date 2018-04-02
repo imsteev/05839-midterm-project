@@ -18,10 +18,10 @@ def create_region_csv(region):
 with open ("./us_data.csv") as csvfile:
     df = pd.read_csv(csvfile)
 
-song_dfs = []
+date_list = np.array('2017-01-01', dtype=np.datetime64) + np.arange(365)
+print(date_list.to)
+# song_dfs = []
 
-for track_name in df['Track Name'].unique():
-    song_df = df[df['Track Name'] == track_name]
-    df.loc[df['Track Name'] == track_name, 'Position Diff'] = song_df['Position'] - song_df.shift()['Position']
-
-print(len(df))
+# for track_name in df['Track Name'].unique():
+#     song_df = df[df['Track Name'] == track_name]
+#     df.loc[df['Track Name'] == track_name, 'Position Diff'] = song_df['Position'] - song_df.shift()['Position']
