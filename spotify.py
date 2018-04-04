@@ -13,7 +13,8 @@ class Spotify(object):
             'tick0': 0,
             'dtick': 20,
             'ticklen': 200,
-            'tickcolor': '#000'
+            'tickcolor': '#000',
+            'title': 'Position'
         },
         'margin': {
             'l':200
@@ -66,7 +67,8 @@ class Spotify(object):
             'tick0': 0,
             'dtick': 20,
             'ticklen': 200,
-            'tickcolor': '#000'
+            'tickcolor': '#000',
+            'title': 'Position Difference From Previously Ranked Position'
         },
         'margin': {
             'l':200
@@ -239,6 +241,9 @@ class Spotify(object):
                 'dtick': 20,
                 'ticklen': 200,
                 'tickcolor': '#000'
+            },
+            'xaxis': {
+                'title': 'Song Position'
             }
         }
         fig = go.Figure(data=self.song_box_traces(attr, songs),layout=layout)
@@ -267,7 +272,7 @@ class Spotify(object):
             trace = go.Bar(
                 x = [title for title in topX],
                 y = [topX[title][20*i] for title in topX],
-                name = "Top %d" % (20*i)
+                name = "%d-%d" % (20*(i-1),20*i-1)
             )
             traces.append(trace)
         layout = {

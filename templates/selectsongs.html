@@ -1,8 +1,16 @@
 <div class='selectsongs'>
-    <div>
-        <p style='font-weight:bold;'>Please select the songs you are interested in visualizing.
-        </p>
+    <div class='song-selection'>
+        {% if selected_songs|length>0 %}
+        <h2>Currently selected songs</h2>
+        <ul>
+            {% for song in selected_songs %}
+            <li>{{ song[0] }} by {{ song[1] }}</li>
+            {% endfor %}
+        </ul>
+        {% endif %}
     </div>
+    <p style='font-weight:bold;'>Please select the songs you are interested in visualizing.
+    </p>
     <form action="{{ url_for('select_songs') }}" method='POST'>
         <div class='row'>
             <div class="input-group">

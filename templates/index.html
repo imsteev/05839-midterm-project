@@ -27,13 +27,16 @@
                 <a class="nav-link" href="#data" data-toggle='tab'>Data</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="#visualization" data-toggle='tab'>Visualization</a>
-            </li>
-            <li class="nav-item">
                 <a class="nav-link" href="#selectsongs" data-toggle='tab'>Select Songs</a>
             </li>
             <li class="nav-item">
+                <a class="nav-link" href="#visualization" data-toggle='tab'>Visualization</a>
+            </li>
+            <li class="nav-item">
                 <a class="nav-link" href="#conclusion" data-toggle='tab'>Conclusion</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#references" data-toggle="tab">References</a>
             </li>
         </ul>
         <div class='tab-content'>
@@ -52,7 +55,50 @@
             <div class='tab-pane' id='selectsongs' role='tabpanel'>
                 {% include 'selectsongs.html' %}
             </div>
-            {% if selected_songs|length>0 %} {{pos_scatter}} {{ diff_scatter }} {{heatmap}} {{boxplot}} {{bar}}{% endif %}
+            <div class='tab-pane' id='references' role='tabpanel'>
+                <h2>References</h2>
+                <ul>
+                    <li>
+                        <a href="https://plot.ly/">Plotly</a>
+                    </li>
+                    <li>
+                        <a href="http://www.numpy.org/">NumPy</a>
+                    </li>
+                    <li>
+                        <a href="https://pandas.pydata.org/">Pandas</a>
+                    </li>
+                    <li>
+                        <a href="https://spotifycharts.com/regional">Spotify Charts</a>
+                    </li>
+                    <li>
+                        <a href="https://www.kaggle.com/edumucelli/spotifys-worldwide-daily-song-ranking">Kaggle Dataset</a>
+                    </li>
+                </ul>
+            </div>
+            <div class='plots'>
+                {% if selected_songs|length>0 %}
+                <div>
+                    <h4>Scatterplots</h4>
+                </div>
+                {{pos_scatter}} {{ diff_scatter }}
+                <hr>
+                <div>
+                    <h4>Scatterplots</h4>
+                </div>
+                {{heatmap}}
+                <hr>
+                <div>
+                    <h4>Scatterplots</h4>
+                </div>
+                {{boxplot}}
+                <hr>
+                <div>
+                    <h4>Scatterplots</h4>
+                </div>
+                {{bar}}{% endif %}
+            </div>
+            <br>
+            <br>
         </div>
     </div>
 
@@ -64,6 +110,17 @@
         crossorigin="anonymous"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
         crossorigin="anonymous"></script>
+
+    <script>
+        $(".plots").css("display", "none")
+        $('a[data-toggle="tab"]').on('click', function (e) {
+            if ($(this).attr("href") == "#visualization") {
+                $(".plots").css("display", "block")
+            } else {
+                $(".plots").css("display", "none")
+            }
+        })
+    </script>
 </body>
 
 </html>
