@@ -15,8 +15,9 @@
 </head>
 
 <body>
-    <div class='jumbotron'>
+    <div class='jumbotron' style='background:#1db954;'>
         <h1>Landscape of Top Spotify Songs in 2017</h1>
+        <h4>Stephen Chung</h4>
     </div>
     <div class='container'>
         <ul class="nav nav-tabs justify-content-center" role='tablist'>
@@ -37,6 +38,9 @@
             </li>
             <li class="nav-item">
                 <a class="nav-link" href="#references" data-toggle="tab">References</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="https://github.com/imsteev/05839-midterm-project" target="_blank">Source Code</a>
             </li>
         </ul>
         <div class='tab-content'>
@@ -75,11 +79,11 @@
                 </ul>
             </div>
             <div class='plots'>
+                {% if selected_songs|length>0 %}
                 <p>The following plots should give you insight into how well a Top 200 song did in 2017. You can interact with
                     these charts by clicking on the legends, as well as mousing over the plot themselves. You can also zoom
                     in a specifc area by dragging a selected box in a certain region. Double-click to zoom out.
                 </p>
-                {% if selected_songs|length>0 %}
                 <div>
                     <h4>Scatterplots</h4>
                     <p>
