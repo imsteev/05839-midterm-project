@@ -76,6 +76,9 @@
                 </ul>
             </div>
             <div class='plots'>
+                <p>The following plots should give you insight into how well a Top 200 song did in 2017. You can interact with
+                    these charts by clicking on the legends, as well as mousing over the plot themselves.
+                </p>
                 {% if selected_songs|length>0 %}
                 <div>
                     <h4>Scatterplots</h4>
@@ -83,17 +86,23 @@
                 {{pos_scatter}} {{ diff_scatter }}
                 <hr>
                 <div>
-                    <h4>Scatterplots</h4>
+                    <h4>Position Heatmap</h4>
                 </div>
                 {{heatmap}}
                 <hr>
+                <p>These next two plots do a good job at aggregating a song's performance over the course of the whole year.
+                    In the boxplots, you'll be able to see minimum, maximum, median, and Q1/Q3 quartiles. These simple statistics
+                    generally shows where a song ranked during the time they were on the charts. A large Q1, Q3 difference
+                    means that the song climbed up (or down) the chart, while a small difference means the song stayed in
+                    a relatively consistent spot.
+                </p>
                 <div>
-                    <h4>Scatterplots</h4>
+                    <h4>Boxplots</h4>
                 </div>
                 {{boxplot}}
                 <hr>
                 <div>
-                    <h4>Scatterplots</h4>
+                    <h4>Stacked Bar</h4>
                 </div>
                 {{bar}}{% endif %}
             </div>
