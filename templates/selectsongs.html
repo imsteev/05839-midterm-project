@@ -1,7 +1,7 @@
 <div class='selectsongs'>
     <div class='song-selection'>
         {% if selected_songs|length>0 %}
-        <h2>Currently selected songs</h2>
+        <h2>Selected songs</h2>
         <ul>
             {% for song in selected_songs %}
             <li>{{ song[0] }} by {{ song[1] }}</li>
