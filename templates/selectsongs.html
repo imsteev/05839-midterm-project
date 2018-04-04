@@ -1,0 +1,28 @@
+<div class='selectsongs'>
+    <div>
+        <p style='font-weight:bold;'>Please select the songs you are interested in visualizing.
+        </p>
+    </div>
+    <form action="{{ url_for('select_songs') }}" method='POST'>
+        <div class='row'>
+            <div class="input-group">
+                <button type="submit" class="btn btn-primary">Reload Visualizations</button>
+            </div>
+            {% for column in artists | slice(3) %}
+            <div class='col'>
+                <ul>
+                    {% for artist in column %}
+                    <span style='font-weight:bold;'>{{artist}}</span>
+                    {% for trackname in artists[artist] %}
+                    <li class="form-check song">
+                        <label class="form-check-label">
+                            <input class="form-check-input" type="checkbox" name="song{{loop.index0}}" value="{{ trackname }}---{{ artist }}"> {{ trackname }}
+                        </label>
+                    </li>
+                    {% endfor %} {% endfor %}
+                </ul>
+            </div>
+            {% endfor %}
+        </div>
+    </form>
+</div>

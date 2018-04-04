@@ -1,0 +1,10 @@
+<div class='visualization'>
+    <div class='song-selection'>
+        <h4>Selected songs</h4>
+        <ul>
+            {% for song in selected_songs %}
+            <li>{{ song[0] }} by {{ song[1] }}</li>
+            {% endfor %}
+        </ul>
+    </div>
+</div>

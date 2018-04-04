@@ -1,0 +1,35 @@
+<div class='data'>
+    <div>
+        <h2>About</h2>
+        <p>The data used for this project was Spotify's Top 200 daily charts. I selected a
+            <a href='https://www.kaggle.com/edumucelli/spotifys-worldwide-daily-song-ranking'>fixed dataset</a>, but I could have collected the data using Spotify's API as well. Under a time constraint,
+            I chose the former. Spotify records the Top 200 songs every day and publishes it to their website. I'm using
+            data for the year of 2017.
+        </p>
+    </div>
+    <div>
+        <h2>Cleaning Data</h2>
+        <p>For the most part, the data required little to no cleaning. Spotify does a good job of publishing well-formed data.
+            I did remove the URL field and region field, since the URL of a song was not relevant, and I only looked at Top
+            200 songs within the United States.
+        </p>
+    </div>
+    <div>
+        <h2>Data Quality</h2>
+        <p>Getting data from Spotify is as reliable as it is a service. The dataset is about top songs played on Spotify, from
+            Spotify itself. With that said, the dataset that I downloaded was missing some data for three dates: May 30th,
+            May 31st, and June 2nd. I proceeded without data associated with these dates, as it is only three datapoints
+            out of a whole year. </p>
+    </div>
+    <div>
+        <h2>Using Data</h2>
+        <p>
+            For this project, I relied heavily on Pandas, NumPy, and Plotly. All of these come with Python packages, so it was easy to
+            integrate into a Flask application. There was some things I had to do to shape the original dataset to one that
+            could be used for visualization. One was to calculate song position differences - this is simply the difference
+            between a song's position at a certain date, and the previously seen position. There were some other minor manipulations,
+            so you check out the source code for more details.
+        </p>
+    </div>
+
+</div>
