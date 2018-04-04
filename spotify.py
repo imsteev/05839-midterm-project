@@ -15,13 +15,27 @@ class Spotify(object):
             'ticklen': 200,
             'tickcolor': '#000'
         },
+        'margin': {
+            'l':200
+        },
         'shapes' : [
-            # highlight the region associated with top 10 songs
             {
                 'type': 'rect',
                 'x0': '2017-01-01',
                 'y0': 0,
-                'x1': '2018-01-07',
+                'x1': '2018-01-01',
+                'y1': 50,
+                'fillcolor': 'green',
+                'opacity': 0.2,
+                'line': {
+                    'width': 0
+                }  
+            },
+            {
+                'type': 'rect',
+                'x0': '2017-01-01',
+                'y0': 50,
+                'x1': '2018-01-01',
                 'y1': 100,
                 'fillcolor': 'yellow',
                 'opacity': 0.2,
@@ -33,18 +47,19 @@ class Spotify(object):
                 'type': 'rect',
                 'x0': '2017-01-01',
                 'y0': 100,
-                'x1': '2018-01-07',
+                'x1': '2018-01-01',
                 'y1': 200,
                 'fillcolor': 'red',
                 'opacity': 0.2,
                 'line': {
                     'width': 0
-                }  
+                }
             }
         ]
     }
 
     POSITION_DIFF_LAYOUT = {
+        'title':'Song Position Differences',
         'yaxis': {
             'autotick': False,
             'ticks': '',
@@ -53,13 +68,16 @@ class Spotify(object):
             'ticklen': 200,
             'tickcolor': '#000'
         },
+        'margin': {
+            'l':200
+        },
         'shapes' : [
             # highlight the region associated with top 10 songs
             {
                 'type': 'rect',
                 'x0': '2017-01-01',
                 'y0': -20,
-                'x1': '2018-01-07',
+                'x1': '2018-01-01',
                 'y1': +20,
                 'fillcolor': 'green',
                 'opacity': 0.2,
@@ -71,7 +89,7 @@ class Spotify(object):
                 'type': 'rect',
                 'x0': '2017-01-01',
                 'y0': 20,
-                'x1': '2018-01-07',
+                'x1': '2018-01-01',
                 'y1': 200,
                 'fillcolor': 'red',
                 'opacity': 0.2,
@@ -83,7 +101,7 @@ class Spotify(object):
                 'type': 'rect',
                 'x0': '2017-01-01',
                 'y0': -20,
-                'x1': '2018-01-07',
+                'x1': '2018-01-01',
                 'y1': -200,
                 'fillcolor': 'red',
                 'opacity': 0.2,
@@ -102,7 +120,7 @@ class Spotify(object):
 
     def __init__(self):
         plotly.offline.init_notebook_mode()
-        with open ("./us_data.csv") as csvfile:
+        with open ("./us_data_with_diffs.csv") as csvfile:
             self.df = pd.read_csv(csvfile)
         df = self.df
         name_and_artists = df[['Track Name','Artist']].drop_duplicates()
@@ -212,7 +230,59 @@ class Spotify(object):
         return plot_div
     
     def create_boxplots(self, attr, songs):
-        fig = go.Figure(data=self.song_box_traces(attr, songs))
+        layout = {
+            'title':'Song Position Boxplots',
+            'yaxis': {
+                'autotick': False,
+                'ticks': '',
+                'tick0': 0,
+                'dtick': 20,
+                'ticklen': 200,
+                'tickcolor': '#000'
+            }
+        }
+        fig = go.Figure(data=self.song_box_traces(attr, songs),layout=layout)
+        plot_div = plotly.offline.plot(fig, output_type='div', include_plotlyjs=False)
+        return plot_div
+    
+    def count_days_in(self, attr, songs):
+        df = self.df
+        result = { "%s by %s" %  (trackname,artist) : { (x*20) : 0 for x in range(1,10) } for (trackname,artist) in songs }
+        for song in songs:
+            trackname = song[0]
+            artist = song[1]
+            song_df = df[(df['Track Name'] == trackname)&(df['Artist'] == artist)]
+            for topX in range(1,10):
+                start = (topX-1) * 20
+                end = topX * 20
+                count_in_range = len(song_df[(song_df['Position'].astype(int)>=start)&(song_df['Position'].astype(int)<end)])
+                result["%s by %s" %(trackname,artist)][end] += count_in_range
+        return result
+    
+    def create_barchart(self, attr, songs):
+        df = self.df
+        topX = self.count_days_in("Position", songs)
+        traces = []
+        for i in range(1,10):
+            trace = go.Bar(
+                x = [title for title in topX],
+                y = [topX[title][20*i] for title in topX],
+                name = "Top %d" % (20*i)
+            )
+            traces.append(trace)
+        layout = {
+            'barmode': 'stack',
+            'yaxis': {
+                'autotick': False,
+                'ticks': '',
+                'tick0': 0,
+                'dtick': 20,
+                'ticklen': 200,
+                'tickcolor': '#000',
+                'title':'Days in Position'
+            }
+        }
+        fig = go.Figure(data=traces, layout=layout)
         plot_div = plotly.offline.plot(fig, output_type='div', include_plotlyjs=False)
         return plot_div
     

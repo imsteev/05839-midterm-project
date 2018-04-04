@@ -52,7 +52,7 @@
             <div class='tab-pane' id='selectsongs' role='tabpanel'>
                 {% include 'selectsongs.html' %}
             </div>
-            {% if scatter %} {{scatter}} {{heatmap}} {{boxplot}} {% endif %}
+            {% if selected_songs|length>0 %} {{pos_scatter}} {{ diff_scatter }} {{heatmap}} {{boxplot}} {{bar}}{% endif %}
         </div>
     </div>
 
