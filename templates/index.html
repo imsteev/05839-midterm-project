@@ -56,7 +56,6 @@
                 {% include 'selectsongs.html' %}
             </div>
             <div class='tab-pane' id='references' role='tabpanel'>
-                <h2>References</h2>
                 <ul>
                     <li>
                         <a href="https://plot.ly/">Plotly</a>
@@ -77,11 +76,30 @@
             </div>
             <div class='plots'>
                 <p>The following plots should give you insight into how well a Top 200 song did in 2017. You can interact with
-                    these charts by clicking on the legends, as well as mousing over the plot themselves.
+                    these charts by clicking on the legends, as well as mousing over the plot themselves. You can also zoom
+                    in a specifc area by dragging a selected box in a certain region. Double-click to zoom out.
                 </p>
                 {% if selected_songs|length>0 %}
                 <div>
                     <h4>Scatterplots</h4>
+                    <p>
+                        These two scatter plots aim to visualize a song's growth within the Top 200 charts. The first plot simply plots the position
+                        of a song over time. Remember that the higher the position, the lower the ranking, and vice versa.
+                        This first plot is interesting because you can sort of reason about why a certain song is doing well
+                        based on when the song is at a high rank. As mentioned in the introduction, there are a few Christmas
+                        songs that see tremendous growth during the December 23rd to December 25th. The background is shaded
+                        in different colors to make it easy in determining which position a song is currently at: green represents
+                        Top 50, yellow represents Top 100, and red represents the rest.
+                    </p>
+                    <p>
+                        The second scatter plot aims to look at growth in a slightly different approach. It plots the song's position difference
+                        over time. More specifically, the position difference is defined as the number of positions since
+                        the last recorded position for that particular song. Notice on the plot the green shaded area. This
+                        area represents the "steady growth" zone, with differences between -20 and 20. There was no specific
+                        reason for this range, it was simply based on observations of the heatmap where the transition in
+                        the gradient seems smooth for songs that have position differences that fall in this range. For example,
+                        for the time 'rockstar' and 'HUMBLE.' stayed within this region, they performed at a consistent rate.
+                    </p>
                 </div>
                 {{pos_scatter}} {{ diff_scatter }}
                 <hr>
@@ -91,18 +109,22 @@
                 {{heatmap}}
                 <hr>
                 <p>These next two plots do a good job at aggregating a song's performance over the course of the whole year.
-                    In the boxplots, you'll be able to see minimum, maximum, median, and Q1/Q3 quartiles. These simple statistics
-                    generally shows where a song ranked during the time they were on the charts. A large Q1, Q3 difference
-                    means that the song climbed up (or down) the chart, while a small difference means the song stayed in
-                    a relatively consistent spot.
                 </p>
                 <div>
                     <h4>Boxplots</h4>
+                    <p>In the boxplots, you'll be able to see minimum, maximum, median, and Q1/Q3 quartiles. These simple statistics
+                        generally shows where a song ranked during the time they were on the charts. A large Q1, Q3 difference
+                        means that the song climbed up (or down) the chart, while a small difference means the song stayed
+                        in a relatively consistent spot.</p>
                 </div>
                 {{boxplot}}
                 <hr>
                 <div>
                     <h4>Stacked Bar</h4>
+                    <p>The stacked bar, unlike the boxplots, incorporate data that captures time. More specifically, it shows
+                        how many days a song has spent in a certain range. Using this type of chart makes it easy to compare
+                        with other songs with regard to overall duration in a specific rank.
+                    </p>
                 </div>
                 {{bar}}{% endif %}
             </div>
