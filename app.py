@@ -20,7 +20,8 @@ def homepage():
         position_heatmap = Markup(S.create_heatmap("Position", selected_songs, Spotify.POSITION_HEATMAP_LAYOUT))
         position_boxplots = Markup(S.create_boxplots("Position", selected_songs))
         position_bar = Markup(S.create_barchart("Position", selected_songs))
-        print(position_diff_scatter)
+
+    print(selected_songs)
     return render_template("index.html", 
                             all_songs=S.all_songs, 
                             artists=S.artists,
@@ -38,12 +39,14 @@ def load_data():
 
 @app.route('/selectsongs', methods=['POST'])
 def select_songs():
-    del selected_songs[:]
+    global selected_songs
+    new_songs = []
     for key in request.form:
         song = request.form[key]
         trackname = song.split("---")[0]
         artist = song.split("---")[1]
-        selected_songs.append(tuple((trackname, artist)))
+        new_songs.append(tuple((trackname, artist)))
+    selected_songs = new_songs
     return redirect(url_for('homepage'))
 
 @app.errorhandler(404)

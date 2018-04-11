@@ -24,7 +24,7 @@
                     {% for trackname in artists[artist] %}
                     <li class="form-check song">
                         <label class="form-check-label">
-                            <input class="form-check-input" type="checkbox" name="song{{loop.index0}}" value="{{ trackname }}---{{ artist }}"> {{ trackname }}
+                            <input class="form-check-input" type="checkbox" name="{{ trackname }}---{{ artist }}" value="{{ trackname }}---{{ artist }}"> {{ trackname }}
                         </label>
                     </li>
                     {% endfor %} {% endfor %}
